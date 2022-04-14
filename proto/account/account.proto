@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+// terminal path dir_name/proto run:
+//  protoc --go_out=. --go_opt=paths=source_relative \
+//      --go-grpc_out=. --go-grpc_opt=paths=source_relative \
+//      account/account.proto
+
+package accountsService;
+option go_package = ".;accountsService";
+
+message Account {
+  string Username = 1;
+  string Password = 2;
+}
+
+message Empty {}
+
+message LoginReq {
+  string Username = 1;
+  string Password = 2;
+}
+
+message LoginRes {
+  string Token = 1;
+}
+
+service AccountsService {
+  rpc Login(LoginReq) returns (LoginRes) {}
+}

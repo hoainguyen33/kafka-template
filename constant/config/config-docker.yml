@@ -1,0 +1,47 @@
+AppVersion: 1.0.0
+Server:
+  Port: :5000
+  Development: true
+  Timeout: 15
+  ReadTimeout: 5
+  WriteTimeout: 5
+  MaxConnectionIdle: 5
+  MaxConnectionAge: 5
+
+Kafka:
+#  Brokers: ["kafka1:9091", "kafka2:9092", "kafka3:9093"]
+#  Brokers: ["localhost:9091", "localhost:9092", "localhost:9093"]
+  Brokers: ["host.docker.internal:9091", "host.docker.internal:9092", "host.docker.internal:9093"]
+
+Logger:
+  DisableCaller: false
+  DisableStacktrace: false
+  Encoding: json
+  Level: info
+
+Metrics:
+  Port: ":7070"
+  Url: "host.docker.internal:7071"
+  ServiceName: accounts_microservice
+
+Jaeger:
+  Host: "host.docker.internal:6831"
+  ServiceName: accounts_microservice
+  LogSpans: false
+
+MongoDB:
+  URI: "mongodb://host.docker.internal:27017"
+  User: "admin"
+  Password: "admin"
+  DB: "accounts"
+
+Redis:
+  RedisAddr: "host.docker.internal:6379"
+  RedisPassword:
+  RedisDb: 0
+  RedisDefaultDB: 0
+  MinIdleConn: 200
+  PoolSize: 12000
+  PoolTimeout: 240
+  Password: ""
+  DB: 0
