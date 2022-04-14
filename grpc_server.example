@@ -39,10 +39,10 @@ func (s *server) Run() error
 	grpcServer := grpc.NewServer(
 		grpc.Creds(credentials.NewTLS(config)),
 		grpc.KeepaliveParams(keepalive.ServerParameters{
-			MaxConnectionIdle: s.cfg.Server.MaxConnectionIdle * time.Minute,
-			Timeout:           s.cfg.Server.Timeout * time.Second,
-			MaxConnectionAge:  s.cfg.Server.MaxConnectionAge * time.Minute,
-			Time:              s.cfg.Server.Timeout * time.Minute,
+			MaxConnectionIdle: s.cfg.Server.MaxConnectionIdle * time.Minute, // time.Duration
+			Timeout:           s.cfg.Server.Timeout * time.Second,  // time.Duration
+			MaxConnectionAge:  s.cfg.Server.MaxConnectionAge * time.Minute,  // time.Duration
+			Time:              s.cfg.Server.Timeout * time.Minute,  // time.Duration
 		}),
 		grpc.ChainUnaryInterceptor(
 			grpc_ctxtags.UnaryServerInterceptor(),
