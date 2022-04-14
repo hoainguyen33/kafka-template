@@ -10,7 +10,8 @@ import (
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
-	ac "grpc_client/account"
+	// import from proto
+	ac "grpc_client/proto/account"
 )
 
 const (
