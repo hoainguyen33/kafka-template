@@ -52,8 +52,67 @@ func (s *server) Run() error
 			im.Logger,
 		),
 	)
-
+	// create Account Service
 	accountService := account.NewAccountService(s.log, validate)
 	accountsService.RegisterAccountsServiceServer(grpcServer, accountService)
+	// register grpc
 	grpc_prometheus.Register(grpcServer)
+}
+
+// AccountService
+
+type accountService struct {
+	accountsService.UnimplementedAccountsServiceServer
+	log      logger.Logger
+	validate *validator.Validate
+}
+
+// NewAccountService accountService constructor
+func NewAccountService(log logger.Logger, validate *validator.Validate) *accountService {
+	return &accountService{log: log, validate: validate}
+}
+
+func RegisterAccountsServiceServer(s grpc.ServiceRegistrar, // google.golang.org/grpc
+	srv AccountsServiceServer) {
+	s.RegisterService(&AccountsService_ServiceDesc, srv)
+}
+
+// Login account
+func (p *accountService) Login(ctx context.Context, in *accountsService.LoginReq) (*accountsService.LoginRes, error) {
+	// open tracing
+	span, ctx := opentracing.StartSpanFromContext(ctx, "accountService.Create")
+	defer span.Finish()
+	// prometheus Counter create message
+	counter.CreateMessages.Inc()
+	// Account model
+	acc := &models.Account{
+		Username: in.GetUsername(),
+		Password: in.GetPassword(),
+	}
+	// test password and username
+	if acc.Username != "test" || acc.Password != "12345678" {
+		// prometheus Counter Error
+		counter.ErrorMessages.Inc()
+		// log
+		p.log.Errorf("accountUC.Create: %v", grpcErrors.ErrAccountInvalid)
+		ctx.Err()
+		return nil, grpcErrors.ErrorResponse(grpcErrors.ErrAccountInvalid, accountErrors.AccountInvalid)
+	}
+	ctx.Done()
+	// prometheus Counter Success
+	counter.SuccessMessages.Inc()
+	// accountsService from /proto/account
+	return &accountsService.LoginRes{Token: acc.ToTokenProto()}, nil
+}
+
+// Account
+
+type Account struct {
+	Username string `json:"username" bson:"username,omitempty"`
+	Password string `json:"password,omitempty" bson:"password,omitempty"`
+}
+
+func (p *Account) ToTokenProto() string {
+	// token
+	return "e7c59c2ac1930cde78b4720919233b8d42d96537"
 }

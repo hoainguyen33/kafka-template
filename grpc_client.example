@@ -59,7 +59,10 @@ func main() {
 	// Contact the server and print out its response.
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
-	r, err := c.Login(ctx, &ac.LoginReq{Username: "test1", Password: "12345678"})
+
+	// -------------------------------------------
+	// Login from /proto/account
+	r, err := c.Login(ctx, &ac.LoginReq{Username: "test", Password: "12345678"})
 	if err != nil {
 		log.Fatalf("could not token: %v", err)
 	}
