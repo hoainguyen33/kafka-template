@@ -1,6 +1,6 @@
 rm *.pem
 
-SERVER_CN=113.161.120.125
+SERVER_CN=localhost
 
 # 1. Generate CA's private key and self-signed certificate
 openssl req -x509 -newkey rsa:4096 -days 365 -nodes -keyout ca-key.pem -out ca-cert.pem -subj "/CN=${SERVER_CN}"
