@@ -21,7 +21,7 @@ Http:
 
 
 Kafka:
-  Brokers: [ "localhost:9092" ]
+  Brokers: [ "113.161.120.125:9092" ]
 
 Logger:
   DisableCaller: false

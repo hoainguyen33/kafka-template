@@ -11,7 +11,7 @@ Server:
 Kafka:
 #  Brokers: ["kafka1:9091", "kafka2:9092", "kafka3:9093"]
 #  Brokers: ["localhost:9091", "localhost:9092", "localhost:9093"]
-  Brokers: ["host.docker.internal:9091", "host.docker.internal:9092", "host.docker.internal:9093"]
+  Brokers: ["113.161.120.125:9092"]
 
 Logger:
   DisableCaller: false
@@ -30,13 +30,13 @@ Jaeger:
   LogSpans: false
 
 MongoDB:
-  URI: "mongodb://host.docker.internal:27017"
+  URI: "mongodb://kafka_test_db:27017"
   User: "admin"
   Password: "admin"
   DB: "accounts"
 
 Redis:
-  RedisAddr: "host.docker.internal:6379"
+  RedisAddr: "redis"
   RedisPassword:
   RedisDb: 0
   RedisDefaultDB: 0

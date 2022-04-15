@@ -1,6 +1,6 @@
 rm *.pem
 
-SERVER_CN=localhost
+SERVER_CN=113.161.120.125
 
 # 1. Generate CA's private key and self-signed certificate
 openssl req -x509 -newkey rsa:4096 -days 365 -nodes -keyout ca-key.pem -out ca-cert.pem -subj "/CN=${SERVER_CN}"
@@ -12,7 +12,7 @@ openssl x509 -in ca-cert.pem -noout -text
 openssl req -newkey rsa:4096 -nodes -keyout server-key.pem -out server-req.pem -subj "/CN=${SERVER_CN}"
 
 # 3. Use CA's private key to sign web server's CSR and get back the signed certificate
-openssl x509 -req -in server-req.pem -days 60 -CA ca-cert.pem -CAkey ca-key.pem -CAcreateserial -out server-cert.pem -extfile v3.ext
+openssl x509 -req -in server-req.pem -days 60 -CA ca-cert.pem -CAkey ca-key.pem -CAcreateserial -out server-cert.pem -extfile server-cnf.ext
 
 echo "Server's signed certificate"
 openssl x509 -in server-cert.pem -noout -text

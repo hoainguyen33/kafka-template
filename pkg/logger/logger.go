@@ -59,6 +59,7 @@ func (l *apiLogger) getLoggerLevel(cfg *config.Config) zapcore.Level {
 
 // InitLogger Init logger
 func (l *apiLogger) InitLogger() {
+
 	logLevel := l.getLoggerLevel(l.cfg)
 
 	logWriter := zapcore.AddSync(os.Stderr)

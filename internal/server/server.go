@@ -3,6 +3,7 @@ package server
 import (
 	"context"
 	"crypto/tls"
+	"fmt"
 	constants "kafka-test/constant"
 	"kafka-test/constant/config"
 	"kafka-test/internal/delivery/grpc/account"
@@ -72,7 +73,7 @@ func (s *server) Run() error {
 
 	im := interceptors.NewInterceptorManager(s.log, s.cfg)
 	// mw := middlewares.NewMiddlewareManager(s.log, s.cfg)
-
+	fmt.Println(s.cfg.Server.Port)
 	l, err := net.Listen("tcp", s.cfg.Server.Port)
 	if err != nil {
 		return errors.Wrap(err, "net.Listen")

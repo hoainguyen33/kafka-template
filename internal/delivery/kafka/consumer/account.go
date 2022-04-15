@@ -89,7 +89,6 @@ func (ac *AccountsConsumer) consumeLogin(
 			cancel()
 		}
 	}()
-
 	w := ac.NewWriter(topics.DeadLetterQueueTopic)
 	defer func() {
 		if err := w.Close(); err != nil {
@@ -97,7 +96,6 @@ func (ac *AccountsConsumer) consumeLogin(
 			cancel()
 		}
 	}()
-
 	ac.log.Infof("Starting consumer group: %v", r.Config().GroupID)
 
 	wg := &sync.WaitGroup{}
