@@ -7,7 +7,7 @@ ENV PORT=8000
 ENV MODE=DOCKER
 
 RUN apk add build-base
-WORKDIR /src/github.com/getcare-messenger
+WORKDIR kafka-test
 
 COPY . .
 
